@@ -1,19 +1,14 @@
-<igx-grid [data]="northwindEmployees" primaryKey="employeeID" displayDensity="cosy" [allowFiltering]="true" filterMode="excelStyleFilter" class="grid">
-  <igx-column field="employeeID" dataType="number" header="employeeID" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-paginator [perPage]="10"></igx-paginator>
-  <igx-column field="lastName" dataType="string" header="lastName" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="firstName" dataType="string" header="firstName" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="title" dataType="string" header="title" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="titleOfCourtesy" dataType="string" header="titleOfCourtesy" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="birthDate" dataType="date" header="birthDate" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="hireDate" dataType="date" header="hireDate" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="address.street" dataType="string" header="address street" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="address.city" dataType="string" header="address city" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="address.region" dataType="string" header="address region" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="address.postalCode" dataType="string" header="address postalCode" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="address.country" dataType="string" header="address country" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="address.phone" dataType="string" header="address phone" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="managerID" dataType="number" header="managerID" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="notes" dataType="string" header="notes" [sortable]="true" [selectable]="false"></igx-column>
-  <igx-column field="avatarUrl" dataType="string" header="avatarUrl" [sortable]="true" [selectable]="false"></igx-column>
+<igx-grid #grid1 [data]="data | async" width="100%" height="580px"
+  [isLoading]="isLoading" [pagingMode]="mode">
+  <igx-paginator [(page)]="page" [(perPage)]="perPage" [totalRecords]="totalCount"
+    (pagingDone)="paginate($event.current)">
+  </igx-paginator>
+  <igx-column field="productId"></igx-column>
+  <igx-column field="supplierId"></igx-column>
+  <igx-column field="categoryId"></igx-column>
+  <igx-column field="quantityPerUnit"></igx-column>
+  <igx-column field="unitsInStock"></igx-column>
+  <igx-column field="unitsOnOrder"></igx-column>
+  <igx-column field="reorderLevel"></igx-column>
+  <igx-column field="discontinued"></igx-column>
 </igx-grid>
