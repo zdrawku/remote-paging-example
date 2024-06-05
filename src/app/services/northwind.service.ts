@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, of } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -18,15 +18,20 @@ export class NorthwindService {
     let qS = '';
 
     if (perPage) {
-      qS = `?pageNumber=${index}&pageSize=${perPage}`;
+      qS = `?skip=${index}&top=${perPage}`;
     }
-
+    
     this.http
-      .get(`${this.url + qS}`).pipe(
-        map((data: any) => data)
+      .get<ProductsResult>(`${this.url + qS}`).pipe(
+        map((data: ProductsResult) => data)
       ).subscribe((data) => {
-        this.dataLenght.next(data.totalRecordsCount);
         this.remoteData.next(data.products);
+        this.dataLenght.next(data.totalRecordsCount);
       });
   }
+}
+
+interface ProductsResult {
+  products: any[];
+  totalRecordsCount: number;
 }
