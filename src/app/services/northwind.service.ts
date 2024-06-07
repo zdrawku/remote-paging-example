@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class NorthwindService {
   public remoteData: BehaviorSubject<any[]>;
   public dataLenght: BehaviorSubject<number> = new BehaviorSubject(0);
-  public url = 'https://localhost:7244/Products/GetAllPagedProducts';
+  public url = 'https://data-northwind.indigo.design/Products/GetPagedProducts';
 
   constructor(private http: HttpClient) {
     this.remoteData = new BehaviorSubject([]);
