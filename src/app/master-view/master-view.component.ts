@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
 import { GridPagingMode, IGX_GRID_DIRECTIVES, IgxGridComponent } from '@infragistics/igniteui-angular';
-import { Observable, takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NorthwindService } from '../services/northwind.service';
 import { CommonModule } from '@angular/common';
 
@@ -11,59 +11,42 @@ import { CommonModule } from '@angular/common';
   templateUrl: './master-view.component.html',
   styleUrls: ['./master-view.component.scss']
 })
-export class MasterViewComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MasterViewComponent implements AfterViewInit {
   @ViewChild('grid1', { static: true }) public grid1: IgxGridComponent;
   @ViewChild('customPager', { read: TemplateRef, static: true }) public remotePager: TemplateRef<any>;
-  public totalCount = 0;
-  public page = 0;
+  public totalRecords: Observable<number>;
   public data: Observable<any[]>;
   public mode = GridPagingMode.Remote;
   public isLoading = true;
 
-  private _dataLengthSubscriber;
-  private _perPage = 10;
-
-  public get perPage(): number {
-    return this._perPage;
-  }
-
-  public set perPage(val: number) {
-    this._perPage = val;
-    this.paginate(0);
-  }
-
   constructor(private northwindService: NorthwindService) { }
 
-  public ngOnInit() {
+  public ngAfterViewInit() {
+    // Initialize Grid
+    this.grid1.isLoading = true;
     this.data = this.northwindService.remoteData.asObservable();
+    this.totalRecords = this.northwindService.dataLenght.asObservable();
+
+    // Load Grid data
+    const { skip, top } = this.calculatePagination();
+    this.northwindService.getData(skip, top);
+
     this.data.subscribe(() => {
       this.isLoading = false;
     });
-    this._dataLengthSubscriber = this.northwindService.getDataLength().subscribe((data) => {
-      this.totalCount = data;
-    });
   }
 
-  public ngOnDestroy() {
-    if (this._dataLengthSubscriber) {
-      this._dataLengthSubscriber.unsubscribe();
-    }
-  }
-
-  public ngAfterViewInit() {
-    this.grid1.isLoading = true;
-    this.northwindService.getData(0, this.grid1.perPage);
-    this.northwindService.getDataLength();
-  }
-
-  public pagingDone(page) {
-    const skip = page.current * this.grid1.perPage;
-    this.northwindService.getData(skip, this.grid1.perPage);
-  }
-
-  public paginate(page) {
+  public paginate() {
     this.isLoading = true;
-    const skip = page * this.grid1.perPage;
-    this.northwindService.getData(skip, this.grid1.perPage);
+    const { skip, top } = this.calculatePagination();
+
+    this.northwindService.getData(skip, top);
+  }
+
+  // Later can be extended to support OrderBy query option or even sorting and filtering
+  private calculatePagination() {
+    const skip = this.grid1.page * this.grid1.perPage;
+    const top = this.grid1.perPage;
+    return { skip, top };
   }
 }
