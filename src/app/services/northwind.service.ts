@@ -25,13 +25,13 @@ export class NorthwindService {
       .get<ProductsResult>(`${this.url + qS}`).pipe(
         map((data: ProductsResult) => data)
       ).subscribe((data) => {
-        this.remoteData.next(data.products);
+        this.remoteData.next(data.items);
         this.dataLenght.next(data.totalRecordsCount);
       });
   }
 }
 
 interface ProductsResult {
-  products: any[];
+  items: any[];
   totalRecordsCount: number;
 }

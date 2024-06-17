@@ -17,7 +17,17 @@ export class MasterViewComponent implements AfterViewInit {
   public totalRecords: Observable<number>;
   public data: Observable<any[]>;
   public mode = GridPagingMode.Remote;
-  public isLoading = true;
+  public isLoading = true;  
+  private _perPage = 15;
+
+  public get perPage(): number {
+    return this._perPage;
+  }
+
+  public set perPage(val: number) {
+    this._perPage = val;
+    this.paginate();
+  }
 
   constructor(private northwindService: NorthwindService) { }
 
@@ -45,8 +55,9 @@ export class MasterViewComponent implements AfterViewInit {
 
   // Later can be extended to support OrderBy query option or even sorting and filtering
   private calculatePagination() {
-    const skip = this.grid1.page * this.grid1.perPage;
-    const top = this.grid1.perPage;
+    debugger;
+    const skip = this.grid1.page * this._perPage;
+    const top = this._perPage;
     return { skip, top };
   }
 }
