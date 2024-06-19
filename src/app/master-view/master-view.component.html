@@ -1,5 +1,5 @@
 <div class="row-layout group">
-  <igx-card *ngFor="let product of cardsData | async" class="card">
+  <igx-card *ngFor="let product of cardsData$ | async" class="card">
     <igx-card-header>
       <h5 igxCardHeaderTitle>Product ID: {{ product.productId }}</h5>
     </igx-card-header>
@@ -15,14 +15,14 @@
   </igx-card>
 </div>
 
-<igx-paginator #paginator [(perPage)]="perPageCards" [selectOptions]="cardItemsPerPage" [totalRecords]="totalCardsRecords | async"
+<igx-paginator #paginator [(perPage)]="perPageCards" [selectOptions]="cardItemsPerPage" [totalRecords]="totalCardsRecords$ | async"
   (pagingDone)="paginateCards()">
 </igx-paginator>
 
 <div class="row-layout group_1">
-  <igx-grid #grid1 [data]="data | async" width="100%" height="580px" [isLoading]="isLoading" [pagingMode]="mode"
+  <igx-grid #grid1 [data]="data$ | async" width="100%" height="580px" [isLoading]="isLoading" [pagingMode]="mode"
     class="grid">
-    <igx-paginator [(perPage)]="perPage" [totalRecords]="totalRecords | async" (pagingDone)="paginateGrid()">
+    <igx-paginator [(perPage)]="perPage" [totalRecords]="totalRecords$ | async" (pagingDone)="paginateGrid()">
     </igx-paginator>
     <igx-column field="productId"></igx-column>
     <igx-column field="supplierId"></igx-column>
