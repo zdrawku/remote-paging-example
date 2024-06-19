@@ -1,13 +1,53 @@
 :host {
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  align-content: flex-start;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: flex-start;
+}
+.row-layout {
+	display: flex;
+}
+.group {
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: flex-start;
+	overflow: auto;
+	position: relative;
+	margin: 16px;
+	min-width: 50px;
+	min-height: 50px;
+	gap: 16px;
+}
+.card {
+	width: 320px;
+	height: max-content;
+	min-width: 320px;
+	max-width: 320px;
+	flex-shrink: 0;
+}
+.group_1 {
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: flex-start;
+	position: relative;
+	margin: 16px;
+	min-width: 50px;
+	min-height: 50px;
+	flex-grow: 1;
+	flex-basis: 0;
+}
+.actions-content {
+	min-width: 50px;
+	min-height: 40px;
+}
+.button {
+	height: max-content;
 }
 .grid {
-  min-width: 600px;
-  min-height: 300px;
-  flex-grow: 1;
-  flex-basis: 0;
+	min-width: 600px;
+	min-height: 300px;
+	flex-grow: 1;
+	flex-basis: 0;
 }
