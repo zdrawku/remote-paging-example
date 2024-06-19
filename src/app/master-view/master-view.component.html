@@ -1,27 +1,28 @@
 <div class="row-layout group">
-  <igx-card *ngFor="let product of data | async" class="card">
+  <igx-card *ngFor="let product of cardsData | async" class="card">
     <igx-card-header>
       <h5 igxCardHeaderTitle>Product ID: {{ product.productId }}</h5>
     </igx-card-header>
 
     <igx-card-content>
       <h5 igxCardHeaderSubtitle>Units in stock: {{ product.unitsInStock }}</h5>
-    </igx-card-content>
+      <igx-checkbox [checked]="product.discontinued" igxRipple="true" [disabled]="true">Discontinued</igx-checkbox>
+      </igx-card-content>
 
     <igx-card-actions class="actions-content">
-      <button igxButton="outlined" igxRipple igxStart> Buy now</button>
+      <button igxButton="outlined" igxRipple igxStart> Units On Order: {{ product.unitsOnOrder }}</button>
     </igx-card-actions>
   </igx-card>
 </div>
 
-<igx-paginator #paginator [(perPage)]="perPageCards" [selectOptions]="cardItemsPerPage" [totalRecords]="totalRecords | async"
+<igx-paginator #paginator [(perPage)]="perPageCards" [selectOptions]="cardItemsPerPage" [totalRecords]="totalCardsRecords | async"
   (pagingDone)="paginateCards()">
 </igx-paginator>
 
 <div class="row-layout group_1">
   <igx-grid #grid1 [data]="data | async" width="100%" height="580px" [isLoading]="isLoading" [pagingMode]="mode"
     class="grid">
-    <igx-paginator [(perPage)]="perPage" [totalRecords]="totalRecords | async" (pagingDone)="paginate()">
+    <igx-paginator [(perPage)]="perPage" [totalRecords]="totalRecords | async" (pagingDone)="paginateGrid()">
     </igx-paginator>
     <igx-column field="productId"></igx-column>
     <igx-column field="supplierId"></igx-column>
