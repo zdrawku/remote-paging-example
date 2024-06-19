@@ -6,7 +6,7 @@ import { GridPagingMode, IGX_GRID_DIRECTIVES, IgxGridComponent, IgxPaginatorComp
   IgxCardHeaderComponent,
   IgxCardContentDirective
  } from '@infragistics/igniteui-angular';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NorthwindService } from '../services/northwind.service';
 import { CommonModule } from '@angular/common';
 
@@ -104,10 +104,5 @@ export class MasterViewComponent implements AfterViewInit {
     const skipCards = this.paginator.page * this._cardsPerPage;
     const topCards = this._cardsPerPage;
     return { skipCards, topCards };
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

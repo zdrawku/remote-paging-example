@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { BehaviorSubject, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { ProductsResult } from '../models/northwind/product-type';
 
 
