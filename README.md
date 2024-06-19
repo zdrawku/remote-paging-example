@@ -1,4 +1,8 @@
-# untitled-app (9)
+# Remote paging example
+
+Public URL - https://zdrawku.github.io/remote-paging-example/
+
+It shows how to use remote paging with a Grid and a list of Cards
 
 This project was generated with [App Builder Code Gen](https://www.infragistics.com/products/appbuilder).
 
